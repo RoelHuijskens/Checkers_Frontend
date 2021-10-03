@@ -2,21 +2,26 @@
 <html>
 <head>
 <title>Our Funky HTML Page</title>
+<link rel="stylesheet" href="checkers_stylesheet.css">
 <meta name="description" content="Our first page">
 <meta name="keywords" content="html tutorial template">
+
 </head>
 <body>
 
 
-<div style='width:100vw;height:100vh;display:flex;justify-content-center'> 
+<div id='page_container' > 
 	
 
-<div style="width:35vw;height:25vh" id="game_lobby">
-<div style='width:30vw;height:25vh' id="username_input">
+<div id="game_lobby">
+<div id="username_input">
+	<h2>Please choose a user name</h2>
 	<label for="username">Username:</label>
 	<input type="text" id="username" name="username">
 	<input type="button" value="Submit" id='send_button'>
 	</div>
+<div id="challenge_selection" style="display:none">
+<h2>Select an opponent (don't pick yourself)</h2>
 <label for="challenge">Choose an opponent:</label>
 
 <select name="challenge" id="challenge-select">
@@ -24,9 +29,9 @@
    
 </select>
 <input type="button" value="challenge" id="challenge_button">
-
 </div>
-<div id="board"> 
+</div>
+<div id="board_container"> 
 </div>
 
 <div id="selected"></div>

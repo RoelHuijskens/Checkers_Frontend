@@ -1,0 +1,54 @@
+body {
+    margin:0;
+    padding-top:10vh;
+    width:100vw;
+    height:90vh;
+    background-color:lightblue;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+#page_container {
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+}
+
+#game_lobby {
+    width:35vw;
+    height:25vh;
+    display: flex;
+    justify-content: center;
+}
+
+#username_input {
+    width:30vw;
+    height:15vh;
+
+}
+
+#board_container {
+    width:100%;
+    height:100%;
+    display:none;
+    justify-content:center;
+}
+
+#challenge_selection {
+    display: none;
+}
+
+
+.row {
+    display:flex;
+    border: 2px solid black;
+    width:100%;
+    height:12.5%;
+}
+
+.column {
+    border:2px solid black;
+    width:12.5%;
+	height:100%;
+	zIndex:5;
+}

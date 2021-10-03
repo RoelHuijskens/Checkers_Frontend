@@ -34,7 +34,13 @@ webSocket.addEventListener('message', function(event){
 			console.log("ERROR" + message["content"])
 			break;
 		case "update_list":
-			console.log("Yo evaluated")
+			input_tag = document.getElementById('username_input')
+			if (input_tag.style.display != 'none'){
+				input_tag.style.display = 'none'
+				document.getElementById('challenge_selection').style.display = 'block'
+			}
+				
+
 			option_list = document.getElementById("challenge-select")
 			option_list.innerHTML = ""
 			others_online = message["content"]
@@ -47,7 +53,7 @@ webSocket.addEventListener('message', function(event){
 			}
 			break;
 		case "start_game":
-			document.getElementById("game_lobby").innerHTML = ""
+			document.getElementById("game_lobby").style.display = "none"
 			//import { setup_board } from './modules/GameLogic.js';
 			setup_board(color);	
 		default:
@@ -67,7 +73,7 @@ const send_butt = document.getElementById("send_button")
 
 send_butt.onclick = function(event){
 	name = document.getElementById("username").value
-	webSocket.send('{"msg":"'+"sign_in"+'","content":"'+name+'"}');
+	webSocket.send('{"msg":"'+"sign_in"+'","content":"'+ name +'"}');
 }
 
 const challenge_button = document.getElementById("challenge_button")
@@ -89,62 +95,65 @@ function setup_board(color){
 	} else {
 		console.log("Unusual color choice.")
 	}
-	
-for(let rowInd=7; rowInd >= 0; rowInd--){
 
-	let row = document.createElement("div") 
-	row.style.display = "flex"
-	//row.style.flex-direction = "row"
-	row.style.border = '2px solid black'
-	row.style.width = '48vw'
-	row.style.height = "6vw"
-	row.id = "Row".concat(toString(rowInd))
-	
-	for( let colInd = 0; colInd <8; colInd++){
-		let col = document.createElement("span")
-		col.style.border = '2px solid black'
-		col.style.width = "6vw"
-		col.style.height = "6vw"
-		col.style.zIndex = "5"
-		col.id = "Row:".concat(rowInd.toString(10).concat(";Col:".concat(colInd.toString(10))))
-		col.addEventListener("click",getIndex)
-		row.appendChild(col)	
-		if( (colInd%2==0&&rowInd%2==0)||(colInd%2!=0&&rowInd%2!=0)){
-			col.style.backgroundColor = "grey"
-			
-			if((rowInd<3||rowInd>4)){
-				let piece = document.createElement("img")
-				piece.id = "Piece:".concat(rowInd.toString(10)).concat(";".concat(colInd.toString(10)))	
-				piece.style.width = "100%"
-				piece.style.height = "100%"
-				piece.innerHTML = "Apiece"
-				piece.style.zIndex = "2"
-				
-			if(rowInd < 3){
-				piece.src = my_color
-				
-			}else{
-				
-				piece.src = opponent_color
-				
-			
-		}
-		col.appendChild(piece)
-			}
-			
-			
+	let board = document.createElement("div")
+	board.id = 'board'
+	board.style.width = "50rem"
+	board.style.height = "50rem"
+
+
+	for(let rowInd=7; rowInd >= 0; rowInd--){
+
+		let row = document.createElement("div") 
+		row.classList.add('row')
+		row.id = "Row".concat(toString(rowInd))
 		
+		for( let colInd = 0; colInd <8; colInd++){
+			let col = document.createElement("span")
+			col.classList.add("column")
+			col.id = "Row:".concat(rowInd.toString(10).concat(";Col:".concat(colInd.toString(10))))
+			col.addEventListener("click",getIndex)
+			row.appendChild(col)	
+			if( (colInd%2==0&&rowInd%2==0)||(colInd%2!=0&&rowInd%2!=0)){
+				col.style.backgroundColor = "grey"
+				
+				if((rowInd<3||rowInd>4)){
+					let piece = document.createElement("img")
+					piece.id = "Piece:".concat(rowInd.toString(10)).concat(";".concat(colInd.toString(10)))	
+					piece.style.width = "100%"
+					piece.style.height = "100%"
+					piece.innerHTML = "Apiece"
+					piece.style.zIndex = "2"
+					
+				if(rowInd < 3){
+					piece.src = my_color
+					
+				}else{
+					
+					piece.src = opponent_color
+					
+				
+			}
+			col.appendChild(piece)
+				}
+				
+				
 			
-	
+				
+		
+		} else {
+			col.style.backgroundColor = "white"
+		}
+		
+		board.appendChild(row)
+		
+		
+	} 
+		document.getElementById("board_container").style.display = 'flex'
+		document.getElementById("board_container").appendChild(board)
 	}
-	
-	board.appendChild(row)
-	
-	
-} 
-}
 
-}
+	}
 
 function getIndex(event){
 	console.log(event.target.tagName)
