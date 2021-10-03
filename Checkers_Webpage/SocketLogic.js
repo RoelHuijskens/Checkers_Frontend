@@ -3,7 +3,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-let url = 'ws://20.93.236.72:80'
+let url = 'ws://checkersbackend.westeurope.azurecontainer.io:5000'
 
 
 
